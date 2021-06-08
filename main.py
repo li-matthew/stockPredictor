@@ -18,7 +18,7 @@ import plotly.express as px
 stock = st.text_input('stock')
 
 displayRange = 365
-epochNum = 1
+epochNum = 100
 batchSize = 32
 # stock = 'SNAP'
 tickerSymbol = stock
