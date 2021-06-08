@@ -79,3 +79,32 @@ plt.plot(scaler.inverse_transform(df))
 plt.plot(trainPlot)
 plt.plot(testPlot)
 plt.show()
+
+xInput = test[len(test) - 100:].reshape(1,-1)
+input = list(xInput)
+input = input[0].tolist()
+
+output = []
+steps = 100
+i = 0
+while i < 30:
+    if (len(input) > 100):
+        xInput = np.array(input[1:])
+        print('{} day input {}'.format(i, xInput))
+        xInput = xInput.reshape(-1, 1)
+        xInput = xInput.reshape((1, steps, 1))
+        # print(xInput)
+        yHat = model.predict(xInput, verbose=0)
+        print('{} day output {}'.format(i, yHat))
+        input.extend(yHat[0].tolist())
+        input = input[1:]
+        output.extend(yHat.tolist())
+        i = i + 1
+    else:
+        xInput = xInput.reshape((1, steps, 1))
+        yHat = model.predict(xInput, verbose = 0)
+        print(yHat[0])
+        input.extend(yHat[0].tolist())
+        print(len(input))
+        output.extend(yHat.tolist())
+        i = i + 1
